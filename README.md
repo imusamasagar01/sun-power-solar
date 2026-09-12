@@ -19,6 +19,9 @@ Admin: `/admin/login` → products (add / edit / delete), announcements, enquiri
 
 ## Running locally
 
+Requires **Node 22 or newer** (the Supabase client needs native WebSocket support, which Node 20
+does not have). With nvm: `nvm use` picks up the version from `.nvmrc`.
+
 ```bash
 npm install
 cp .env.example .env.local   # fill in the values
