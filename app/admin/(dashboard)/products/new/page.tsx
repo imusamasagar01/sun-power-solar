@@ -10,7 +10,7 @@ export default async function NewProductPage() {
     <div>
       <Link
         href="/admin/products"
-        className="inline-flex items-center gap-2 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700"
+        className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-brand"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to products

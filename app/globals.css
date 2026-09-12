@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark mode is driven by a class on <html> so the user's choice can override the OS. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -38,13 +41,61 @@
 
   --color-sand: #faf9f6;
 
+  /*
+   * Semantic surface/text tokens. Components use these instead of raw palette
+   * steps so dark mode only has to re-point the variables (see .dark below).
+   */
+  --color-surface: #faf9f6;
+  --color-card: #ffffff;
+  --color-subtle: #f5f7fa;
+  --color-line: #e7ecf3;
+  --color-line-strong: #cbd5e3;
+  --color-fg: #0b1420;
+  --color-body: #232f44;
+  --color-muted: #4a5870;
+  --color-muted-soft: #6b7a92;
+  --color-brand: #0a6142;
+
   --shadow-card: 0 1px 2px rgba(11, 20, 32, 0.04), 0 8px 24px -12px rgba(11, 20, 32, 0.12);
   --shadow-lift: 0 8px 20px -8px rgba(11, 20, 32, 0.14), 0 24px 48px -24px rgba(11, 20, 32, 0.22);
+  --shadow-glow: 0 0 0 1px rgba(12, 123, 79, 0.08), 0 18px 40px -20px rgba(12, 123, 79, 0.45);
 
   --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade-in: fade-in 0.6s ease-out both;
   --animate-shimmer: shimmer 1.6s ease-in-out infinite;
   --animate-bar: bar 1.4s ease-in-out infinite;
+  --animate-float: float 9s ease-in-out infinite;
+  --animate-drift: drift 14s ease-in-out infinite;
+  --animate-marquee: marquee 32s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(3%, -4%, 0) scale(1.08);
+    }
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 
   @keyframes shimmer {
     0%,
@@ -89,16 +140,55 @@
   }
 }
 
+/*
+ * Dark theme. Only the semantic tokens and the few palette steps used as light
+ * tints are re-pointed here, so every component picks up dark mode for free.
+ */
+.dark {
+  --color-surface: #080f18;
+  --color-card: #111c29;
+  --color-subtle: #16202f;
+  --color-line: #1f2c3e;
+  --color-line-strong: #2c3c53;
+  --color-fg: #f2f6fb;
+  --color-body: #cbd5e3;
+  --color-muted: #9aa8bd;
+  --color-muted-soft: #8494ab;
+  --color-brand: #5fd3a1;
+
+  /* Dark surfaces sit slightly above the page background instead of below it. */
+  --color-ink-900: #101b29;
+  --color-ink-50: #16202f;
+  --color-ink-100: #1f2c3e;
+
+  /* Tinted chips and outlines. */
+  --color-brand-50: #0d251c;
+  --color-brand-100: #123326;
+  --color-brand-200: #1c4a37;
+  --color-gold-100: #2c2413;
+  --color-gold-200: #3a2f18;
+  --color-gold-600: #f2c452;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 28px -14px rgba(0, 0, 0, 0.7);
+  --shadow-lift: 0 8px 20px -8px rgba(0, 0, 0, 0.5), 0 28px 56px -26px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 0 1px rgba(95, 211, 161, 0.14), 0 18px 44px -22px rgba(52, 183, 125, 0.5);
+
+  color-scheme: dark;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    background-color: var(--color-sand);
-    color: var(--color-ink-800);
+    background-color: var(--color-surface);
+    color: var(--color-body);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
   h1,
@@ -107,12 +197,17 @@
   h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
-    color: var(--color-ink-900);
+    color: var(--color-fg);
   }
 
   ::selection {
     background-color: var(--color-brand-100);
     color: var(--color-brand-900);
+  }
+
+  .dark ::selection {
+    background-color: var(--color-brand-700);
+    color: #ffffff;
   }
 }
 
@@ -143,6 +238,78 @@
     opacity: 1;
     transform: none;
   }
+
+  /* Soft coloured light used behind hero and dark promotional panels. */
+  .glow-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    pointer-events: none;
+  }
+
+  /* Faint dotted grid that gives dark sections some depth. */
+  .dot-grid {
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Light that sweeps across a card when its group is hovered. */
+  .sheen {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.42) 50%, transparent 62%);
+    transform: translateX(-120%);
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .group:hover .sheen::after {
+    transform: translateX(120%);
+  }
+
+  .dark .sheen::after {
+    background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, 0.1) 50%, transparent 62%);
+  }
+
+  /* Small capitalised label above a section heading. */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-brand);
+  }
+
+  .eyebrow::before {
+    content: "";
+    height: 1px;
+    width: 1.75rem;
+    background-image: linear-gradient(to right, transparent, var(--color-brand-400));
+  }
+
+  /* Mirror the rule when the label sits in a centred block. */
+  .text-center .eyebrow::after {
+    content: "";
+    height: 1px;
+    width: 1.75rem;
+    background-image: linear-gradient(to left, transparent, var(--color-brand-400));
+  }
+
+  /* Brand gradient applied to a run of display text. */
+  .text-gradient {
+    background-image: linear-gradient(100deg, var(--color-brand-300), var(--color-gold-300));
+    background-clip: text;
+    color: transparent;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -153,6 +320,14 @@
   .reveal {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .animate-float,
+  .animate-drift,
+  .animate-marquee,
+  .sheen::after {
+    animation: none;
     transition: none;
   }
 }

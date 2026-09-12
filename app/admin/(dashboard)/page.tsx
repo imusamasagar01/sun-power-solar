@@ -18,7 +18,7 @@ export default async function AdminDashboardPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p className="mt-1.5 text-sm text-ink-500">Manage your catalogue and site announcements.</p>
+          <p className="mt-1.5 text-sm text-muted">Manage your catalogue and site announcements.</p>
         </div>
         <Link
           href="/admin/products/new"
@@ -43,26 +43,26 @@ export default async function AdminDashboardPage() {
         <StatCard Icon={MessageSquare} label="Enquiries received" value={String(inquiries.length)} />
       </div>
 
-      <div className="mt-10 overflow-hidden rounded-2xl border border-ink-100 bg-white">
-        <div className="flex items-center justify-between border-b border-ink-100 px-6 py-4">
+      <div className="mt-10 overflow-hidden rounded-2xl border border-line bg-card">
+        <div className="flex items-center justify-between border-b border-line px-6 py-4">
           <h2 className="font-display text-base font-bold">Recent products</h2>
-          <Link href="/admin/products" className="text-sm font-medium text-brand-700 hover:underline">
+          <Link href="/admin/products" className="text-sm font-medium text-brand hover:underline">
             View all
           </Link>
         </div>
-        <ul className="divide-y divide-ink-100">
+        <ul className="divide-y divide-line">
           {products.slice(0, 5).map((product) => (
             <li key={product.id} className="flex items-center justify-between gap-4 px-6 py-4">
               <div className="min-w-0">
-                <p className="truncate text-sm font-medium text-ink-900">{product.name}</p>
-                <p className="mt-0.5 text-xs text-ink-400">
+                <p className="truncate text-sm font-medium text-fg">{product.name}</p>
+                <p className="mt-0.5 text-xs text-muted-soft">
                   {product.category?.name ?? "Uncategorised"} ·{" "}
                   {formatPrice(product.discount_price ?? product.price)}
                 </p>
               </div>
               <span
                 className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${
-                  product.is_active ? "bg-brand-100 text-brand-700" : "bg-ink-100 text-ink-500"
+                  product.is_active ? "bg-brand-100 text-brand" : "bg-line text-muted"
                 }`}
               >
                 {product.is_active ? "Active" : "Inactive"}
@@ -70,7 +70,7 @@ export default async function AdminDashboardPage() {
             </li>
           ))}
           {products.length === 0 && (
-            <li className="px-6 py-10 text-center text-sm text-ink-400">No products yet.</li>
+            <li className="px-6 py-10 text-center text-sm text-muted-soft">No products yet.</li>
           )}
         </ul>
       </div>
@@ -88,12 +88,12 @@ function StatCard({
   value: string;
 }) {
   return (
-    <div className="rounded-2xl border border-ink-100 bg-white p-6">
-      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600/10 text-brand-700">
+    <div className="rounded-2xl border border-line bg-card p-6">
+      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-600/10 text-brand">
         <Icon className="h-5 w-5" />
       </span>
-      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-ink-400">{label}</p>
-      <p className="mt-1.5 truncate font-display text-xl font-bold text-ink-900">{value}</p>
+      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-muted-soft">{label}</p>
+      <p className="mt-1.5 truncate font-display text-xl font-bold text-fg">{value}</p>
     </div>
   );
 }

@@ -67,13 +67,13 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b border-ink-100 bg-white">
+      <section className="border-b border-line bg-card">
         <div className="container-page py-14 lg:py-20">
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">About Us</span>
+          <span className="eyebrow">About Us</span>
           <h1 className="mt-3 max-w-3xl text-4xl font-extrabold sm:text-5xl">
             Solar engineering with a long-term view
           </h1>
-          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-500">
+          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted">
             {site.name} designs, supplies and installs solar energy systems for homes, businesses and farms —
             built to perform for decades, not just to pass inspection.
           </p>
@@ -97,22 +97,22 @@ export default function AboutPage() {
 
           <Reveal delay={100}>
             <h2 className="text-3xl font-bold sm:text-4xl">Who we are</h2>
-            <p className="mt-5 text-[15px] leading-relaxed text-ink-500">
+            <p className="mt-5 text-[15px] leading-relaxed text-muted">
               {site.name} began as a small team of electrical engineers who believed solar was being sold
               badly — oversized systems, vague quotations and no support once the invoice was paid. We set
               out to build the company we would have wanted as customers.
             </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
+            <p className="mt-4 text-[15px] leading-relaxed text-muted">
               Over a decade later we have delivered thousands of installations, from single-room off-grid
               setups to industrial rooftop arrays. Our engineers handle the design, our own crews handle the
               installation, and our service team stays reachable for the life of the system.
             </p>
 
-            <dl className="mt-9 grid grid-cols-2 gap-6 border-t border-ink-100 pt-8">
+            <dl className="mt-9 grid grid-cols-2 gap-6 border-t border-line pt-8">
               {site.stats.map((stat) => (
                 <div key={stat.label}>
-                  <dt className="font-display text-3xl font-bold text-brand-700">{stat.value}</dt>
-                  <dd className="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-ink-400">
+                  <dt className="font-display text-3xl font-bold text-brand">{stat.value}</dt>
+                  <dd className="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-muted-soft">
                     {stat.label}
                   </dd>
                 </div>
@@ -122,15 +122,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-white py-16 lg:py-24">
+      <section className="bg-card py-16 lg:py-24">
         <div className="container-page grid gap-6 lg:grid-cols-2">
           <Reveal>
-            <div className="h-full rounded-3xl border border-ink-100 bg-sand p-9">
+            <div className="h-full rounded-3xl border border-line bg-surface dark:bg-subtle p-9">
               <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-600 text-white">
                 <Compass className="h-5.5 w-5.5" />
               </span>
               <h2 className="mt-6 text-2xl font-bold">Our Mission</h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-ink-600">
+              <p className="mt-4 text-[15px] leading-relaxed text-body">
                 To make reliable solar energy accessible and affordable for every household and business we
                 serve — through honest advice, quality equipment and workmanship we are proud to put our name
                 on.
@@ -139,12 +139,12 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={100}>
-            <div className="h-full rounded-3xl border border-ink-100 bg-sand p-9">
-              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-400 text-ink-900">
+            <div className="h-full rounded-3xl border border-line bg-surface dark:bg-subtle p-9">
+              <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-gold-400 text-fg">
                 <Eye className="h-5.5 w-5.5" />
               </span>
               <h2 className="mt-6 text-2xl font-bold">Our Vision</h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-ink-600">
+              <p className="mt-4 text-[15px] leading-relaxed text-body">
                 A future where clean, self-generated power is the default choice — and where every customer
                 who switches to solar has a partner they can trust for the full life of their system.
               </p>
@@ -155,11 +155,11 @@ export default function AboutPage() {
 
       <section className="container-page py-16 lg:py-24">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+          <span className="eyebrow">
             What We Do
           </span>
           <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Our services</h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
+          <p className="mt-4 text-[15px] leading-relaxed text-muted">
             From the first site survey to long-term maintenance, we cover every stage of your solar project.
           </p>
         </Reveal>
@@ -167,22 +167,22 @@ export default function AboutPage() {
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {services.map(({ Icon, title, description }, index) => (
             <Reveal key={title} delay={index * 70} className="h-full">
-              <div className="group h-full rounded-2xl border border-ink-100 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift">
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600/10 text-brand-700 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
+              <div className="group h-full rounded-2xl border border-line bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lift">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-600/10 text-brand transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
                   <Icon className="h-5 w-5" />
                 </span>
                 <h3 className="mt-5 font-display text-lg font-bold">{title}</h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-ink-500">{description}</p>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted">{description}</p>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
 
-      <section className="bg-white py-16 lg:py-24">
+      <section className="bg-card py-16 lg:py-24">
         <div className="container-page">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+            <span className="eyebrow">
               Why Choose Us
             </span>
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">How we work</h2>
@@ -191,13 +191,13 @@ export default function AboutPage() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2">
             {values.map((value, index) => (
               <Reveal key={value.title} delay={index * 70} className="h-full">
-                <div className="flex h-full gap-5 rounded-2xl border border-ink-100 bg-sand p-7">
+                <div className="flex h-full gap-5 rounded-2xl border border-line bg-surface dark:bg-subtle p-7">
                   <span className="font-display text-2xl font-extrabold text-brand-200">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div>
                     <h3 className="font-display text-lg font-bold">{value.title}</h3>
-                    <p className="mt-2 text-sm leading-relaxed text-ink-500">{value.description}</p>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">{value.description}</p>
                   </div>
                 </div>
               </Reveal>
@@ -220,7 +220,7 @@ export default function AboutPage() {
               </p>
               <Link
                 href="/contact"
-                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-ink-900 transition-all duration-300 hover:bg-gold-400"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-card px-7 py-3.5 text-sm font-semibold text-fg transition-all duration-300 hover:bg-gold-400"
               >
                 Contact Us
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

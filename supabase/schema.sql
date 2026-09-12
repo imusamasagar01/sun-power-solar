@@ -83,5 +83,6 @@ insert into categories (name, slug) values
   ('Inverters', 'inverters'),
   ('Batteries', 'batteries'),
   ('Complete Systems', 'complete-systems'),
-  ('Accessories', 'accessories')
+  ('Accessories', 'accessories'),
+  ('Water Heating', 'water-heating')
 on conflict (slug) do nothing;

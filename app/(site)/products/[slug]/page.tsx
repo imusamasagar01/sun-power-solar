@@ -47,11 +47,11 @@ export default async function ProductDetailsPage({ params }: PageProps) {
 
   return (
     <>
-      <section className="border-b border-ink-100 bg-white">
+      <section className="border-b border-line bg-card">
         <div className="container-page py-10 lg:py-14">
           <Link
             href="/products"
-            className="group inline-flex items-center gap-2 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700"
+            className="group inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-brand"
           >
             <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />
             Back to products
@@ -62,34 +62,34 @@ export default async function ProductDetailsPage({ params }: PageProps) {
 
             <div className="flex flex-col">
               {product.category && (
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+                <span className="eyebrow">
                   {product.category.name}
                 </span>
               )}
               <h1 className="mt-3 text-3xl font-extrabold sm:text-4xl">{product.name}</h1>
               {product.title && (
-                <p className="mt-4 text-[15px] leading-relaxed text-ink-500">{product.title}</p>
+                <p className="mt-4 text-[15px] leading-relaxed text-muted">{product.title}</p>
               )}
 
-              <div className="mt-7 flex flex-wrap items-end gap-x-4 gap-y-2 rounded-2xl bg-sand px-6 py-5">
+              <div className="mt-7 flex flex-wrap items-end gap-x-4 gap-y-2 rounded-2xl bg-surface px-6 py-5 dark:bg-subtle">
                 {product.discount_price ? (
                   <>
-                    <span className="font-display text-3xl font-extrabold text-ink-900">
+                    <span className="font-display text-3xl font-extrabold text-fg">
                       {formatPrice(product.discount_price)}
                     </span>
-                    <span className="text-lg text-ink-400 line-through">{formatPrice(product.price)}</span>
+                    <span className="text-lg text-muted-soft line-through">{formatPrice(product.price)}</span>
                     {discount !== null && (
-                      <span className="rounded-full bg-gold-400 px-3 py-1 text-xs font-bold text-ink-900">
+                      <span className="rounded-full bg-gold-400 px-3 py-1 text-xs font-bold text-fg">
                         Save {discount}%
                       </span>
                     )}
                   </>
                 ) : (
-                  <span className="font-display text-3xl font-extrabold text-ink-900">
+                  <span className="font-display text-3xl font-extrabold text-fg">
                     {formatPrice(product.price)}
                   </span>
                 )}
-                <span className="w-full text-xs text-ink-400">
+                <span className="w-full text-xs text-muted-soft">
                   Price excludes installation unless stated. Contact us for a tailored quotation.
                 </span>
               </div>
@@ -97,8 +97,8 @@ export default async function ProductDetailsPage({ params }: PageProps) {
               {product.features.length > 0 && (
                 <ul className="mt-7 space-y-3">
                   {product.features.slice(0, 5).map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-[15px] text-ink-700">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand-700">
+                    <li key={feature} className="flex items-start gap-3 text-[15px] text-body">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 text-brand">
                         <Check className="h-3 w-3" />
                       </span>
                       {feature}
@@ -118,7 +118,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                   href={`${site.whatsappHref}?text=${inquiryMessage}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-ink-200 px-7 py-3.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-ink-50 active:scale-[0.98]"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-line-strong px-7 py-3.5 text-sm font-semibold text-body transition-colors hover:bg-subtle active:scale-[0.98]"
                 >
                   <MessageCircle className="h-4 w-4" />
                   WhatsApp
@@ -127,7 +127,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
 
               <a
                 href={site.phoneHref}
-                className="mt-4 inline-flex items-center gap-2 text-sm text-ink-500 transition-colors hover:text-brand-700"
+                className="mt-4 inline-flex items-center gap-2 text-sm text-muted transition-colors hover:text-brand"
               >
                 <Phone className="h-4 w-4" />
                 Prefer to talk? Call {site.phone}
@@ -143,7 +143,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
             {product.description && (
               <Reveal>
                 <h2 className="text-2xl font-bold">Product overview</h2>
-                <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-ink-600">
+                <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-body">
                   {product.description.split("\n").filter(Boolean).map((paragraph, index) => (
                     <p key={index}>{paragraph}</p>
                   ))}
@@ -158,9 +158,9 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                   {product.features.map((feature) => (
                     <div
                       key={feature}
-                      className="flex items-start gap-3 rounded-xl border border-ink-100 bg-white p-4 text-sm leading-relaxed text-ink-700"
+                      className="flex items-start gap-3 rounded-xl border border-line bg-card p-4 text-sm leading-relaxed text-body"
                     >
-                      <BadgeCheck className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-600" />
+                      <BadgeCheck className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand" />
                       {feature}
                     </div>
                   ))}
@@ -171,7 +171,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
             {product.videos.length > 0 && (
               <Reveal>
                 <h2 className="flex items-center gap-2 text-2xl font-bold">
-                  <PlayCircle className="h-5 w-5 text-brand-600" />
+                  <PlayCircle className="h-5 w-5 text-brand" />
                   Videos
                 </h2>
                 <div className="mt-5 grid gap-5 sm:grid-cols-2">
@@ -180,7 +180,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                     return (
                       <div
                         key={video}
-                        className="aspect-video overflow-hidden rounded-2xl border border-ink-100 bg-ink-900"
+                        className="aspect-video overflow-hidden rounded-2xl border border-line bg-ink-900"
                       >
                         {embed ? (
                           <iframe
@@ -204,15 +204,15 @@ export default async function ProductDetailsPage({ params }: PageProps) {
           <div className="space-y-8 lg:sticky lg:top-28 lg:self-start">
             {product.specifications.length > 0 && (
               <Reveal>
-                <div className="overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
-                  <h2 className="border-b border-ink-100 px-6 py-5 font-display text-lg font-bold">
+                <div className="overflow-hidden rounded-2xl border border-line bg-card shadow-card">
+                  <h2 className="border-b border-line px-6 py-5 font-display text-lg font-bold">
                     Specifications
                   </h2>
-                  <dl className="divide-y divide-ink-100">
+                  <dl className="divide-y divide-line">
                     {product.specifications.map((spec) => (
                       <div key={spec.label} className="flex gap-4 px-6 py-3.5 text-sm">
-                        <dt className="w-2/5 shrink-0 text-ink-400">{spec.label}</dt>
-                        <dd className="font-medium text-ink-800">{spec.value}</dd>
+                        <dt className="w-2/5 shrink-0 text-muted-soft">{spec.label}</dt>
+                        <dd className="font-medium text-fg">{spec.value}</dd>
                       </div>
                     ))}
                   </dl>
@@ -222,7 +222,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
 
             {product.documents.length > 0 && (
               <Reveal>
-                <div className="rounded-2xl border border-ink-100 bg-white p-6 shadow-card">
+                <div className="rounded-2xl border border-line bg-card p-6 shadow-card">
                   <h2 className="font-display text-lg font-bold">Documents</h2>
                   <div className="mt-4 space-y-3">
                     {product.documents.map((doc) => (
@@ -231,11 +231,11 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                         href={doc.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="group flex items-center gap-3 rounded-xl border border-ink-100 px-4 py-3 text-sm font-medium text-ink-700 transition-colors hover:border-brand-200 hover:bg-brand-50"
+                        className="group flex items-center gap-3 rounded-xl border border-line px-4 py-3 text-sm font-medium text-body transition-colors hover:border-brand-200 hover:bg-brand-50"
                       >
-                        <FileText className="h-4.5 w-4.5 text-brand-600" />
+                        <FileText className="h-4.5 w-4.5 text-brand" />
                         <span className="flex-1">{doc.name}</span>
-                        <Download className="h-4 w-4 text-ink-400 transition-transform duration-300 group-hover:translate-y-0.5" />
+                        <Download className="h-4 w-4 text-muted-soft transition-transform duration-300 group-hover:translate-y-0.5" />
                       </a>
                     ))}
                   </div>
@@ -252,7 +252,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                 </p>
                 <Link
                   href={`/contact?product=${encodeURIComponent(product.name)}`}
-                  className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink-900 transition-colors hover:bg-gold-400"
+                  className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-card px-6 py-3 text-sm font-semibold text-fg transition-colors hover:bg-gold-400"
                 >
                   Talk to an expert
                 </Link>
@@ -263,7 +263,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
       </section>
 
       {related.length > 0 && (
-        <section className="border-t border-ink-100 bg-white py-16 lg:py-20">
+        <section className="border-t border-line bg-card py-16 lg:py-20">
           <div className="container-page">
             <h2 className="text-2xl font-bold sm:text-3xl">Related products</h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

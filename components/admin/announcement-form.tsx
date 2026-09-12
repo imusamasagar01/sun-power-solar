@@ -14,7 +14,7 @@ export function AnnouncementForm({ announcement }: { announcement?: Announcement
   const [state, formAction] = useActionState(saveAnnouncementAction, initialState);
 
   return (
-    <form action={formAction} className="space-y-5 rounded-2xl border border-ink-100 bg-white p-6 sm:p-7">
+    <form action={formAction} className="space-y-5 rounded-2xl border border-line bg-card p-6 sm:p-7">
       {announcement && <input type="hidden" name="id" value={announcement.id} />}
 
       <div>
@@ -73,12 +73,12 @@ export function AnnouncementForm({ announcement }: { announcement?: Announcement
       </div>
 
       <div>
-        <label className="flex items-center gap-3 text-sm text-ink-700">
+        <label className="flex items-center gap-3 text-sm text-body">
           <input
             type="checkbox"
             name="is_active"
             defaultChecked={announcement?.is_active ?? true}
-            className="h-4 w-4 rounded border-ink-300 accent-brand-600"
+            className="h-4 w-4 rounded border-line-strong accent-brand-600"
           />
           Active — show this announcement on the website
         </label>
@@ -96,7 +96,7 @@ export function AnnouncementForm({ announcement }: { announcement?: Announcement
         <SubmitButton isEdit={Boolean(announcement)} />
         <Link
           href="/admin/announcements"
-          className="rounded-xl border border-ink-200 px-6 py-2.5 text-sm font-semibold text-ink-600 transition-colors hover:bg-ink-50"
+          className="rounded-xl border border-line-strong px-6 py-2.5 text-sm font-semibold text-body transition-colors hover:bg-subtle"
         >
           Cancel
         </Link>

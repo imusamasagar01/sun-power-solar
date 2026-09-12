@@ -15,6 +15,7 @@ const productLinks = [
   { href: "/products?category=inverters", label: "Inverters" },
   { href: "/products?category=batteries", label: "Batteries" },
   { href: "/products?category=complete-systems", label: "Complete Systems" },
+  { href: "/products?category=water-heating", label: "Water Heating" },
 ];
 
 const socials = [
@@ -26,7 +27,8 @@ const socials = [
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto bg-ink-900 text-ink-200">
+    <footer className="relative mt-auto bg-ink-900 text-ink-200">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent" />
       <div className="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4 lg:py-20">
         <div className="max-w-sm">
           <div className="flex items-center gap-2.5">
@@ -47,7 +49,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-ink-300 transition-all duration-300 hover:bg-brand-600 hover:text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-ink-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-600 hover:text-white"
               >
                 <Icon className="h-4 w-4" />
               </a>
@@ -60,7 +62,7 @@ export function SiteFooter() {
           <ul className="mt-5 space-y-3 text-sm">
             {quickLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-ink-300 transition-colors hover:text-brand-300">
+                <Link href={link.href} className="inline-block text-ink-300 transition-all duration-300 hover:translate-x-1 hover:text-brand-300">
                   {link.label}
                 </Link>
               </li>
@@ -73,7 +75,7 @@ export function SiteFooter() {
           <ul className="mt-5 space-y-3 text-sm">
             {productLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-ink-300 transition-colors hover:text-brand-300">
+                <Link href={link.href} className="inline-block text-ink-300 transition-all duration-300 hover:translate-x-1 hover:text-brand-300">
                   {link.label}
                 </Link>
               </li>
@@ -86,13 +88,13 @@ export function SiteFooter() {
           <ul className="mt-5 space-y-4 text-sm">
             <li className="flex gap-3">
               <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
-              <a href={site.phoneHref} className="text-ink-300 transition-colors hover:text-brand-300">
+              <a href={site.phoneHref} className="inline-block text-ink-300 transition-all duration-300 hover:translate-x-1 hover:text-brand-300">
                 {site.phone}
               </a>
             </li>
             <li className="flex gap-3">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
-              <a href={site.emailHref} className="text-ink-300 transition-colors hover:text-brand-300">
+              <a href={site.emailHref} className="inline-block text-ink-300 transition-all duration-300 hover:translate-x-1 hover:text-brand-300">
                 {site.email}
               </a>
             </li>

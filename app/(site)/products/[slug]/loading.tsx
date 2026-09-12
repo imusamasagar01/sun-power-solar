@@ -5,7 +5,7 @@ export default function Loading() {
   return (
     <>
       <LoadingBar />
-      <section className="border-b border-ink-100 bg-white">
+      <section className="border-b border-line bg-card">
         <div className="container-page py-10 lg:py-14">
           <Skeleton className="h-4 w-32" />
 

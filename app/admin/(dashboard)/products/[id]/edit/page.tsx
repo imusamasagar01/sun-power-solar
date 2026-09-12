@@ -13,14 +13,14 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
     <div>
       <Link
         href="/admin/products"
-        className="inline-flex items-center gap-2 text-sm font-medium text-ink-500 transition-colors hover:text-brand-700"
+        className="inline-flex items-center gap-2 text-sm font-medium text-muted transition-colors hover:text-brand"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to products
       </Link>
 
       <h1 className="mt-5 text-2xl font-bold">Edit product</h1>
-      <p className="mt-1.5 text-sm text-ink-500">{product.name}</p>
+      <p className="mt-1.5 text-sm text-muted">{product.name}</p>
 
       <div className="mt-7">
         <ProductForm product={product} categories={categories} />

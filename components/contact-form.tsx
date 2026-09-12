@@ -9,7 +9,7 @@ const initialState: InquiryState = { status: "idle", message: "" };
 
 // text-base on mobile keeps iOS Safari from zooming the page when a field is focused.
 const fieldClass =
-  "w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-base sm:text-sm text-ink-800 outline-none transition-colors placeholder:text-ink-400 focus:border-brand-400 focus:ring-2 focus:ring-brand-100";
+  "w-full rounded-xl border border-line-strong bg-card px-4 py-3 text-base sm:text-sm text-fg outline-none transition-colors placeholder:text-muted-soft focus:border-brand-400 focus:ring-2 focus:ring-brand-100";
 
 export function ContactForm({ product }: { product?: string }) {
   const [state, formAction] = useActionState(submitInquiry, initialState);
@@ -20,13 +20,13 @@ export function ContactForm({ product }: { product?: string }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-ink-700">
+          <label htmlFor="name" className="mb-1.5 block text-sm font-medium text-body">
             Full name *
           </label>
           <input id="name" name="name" required placeholder="Your name" className={fieldClass} />
         </div>
         <div>
-          <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-ink-700">
+          <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-body">
             Phone
           </label>
           <input id="phone" name="phone" placeholder="+92 300 0000000" className={fieldClass} />
@@ -34,7 +34,7 @@ export function ContactForm({ product }: { product?: string }) {
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-ink-700">
+        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-body">
           Email *
         </label>
         <input
@@ -48,7 +48,7 @@ export function ContactForm({ product }: { product?: string }) {
       </div>
 
       <div>
-        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-ink-700">
+        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-body">
           Message *
         </label>
         <textarea

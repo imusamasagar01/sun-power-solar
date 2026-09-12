@@ -17,10 +17,10 @@ export default async function AdminLoginPage() {
             </svg>
           </span>
           <h1 className="mt-5 font-display text-2xl font-bold">{site.name}</h1>
-          <p className="mt-2 text-sm text-ink-500">Sign in to manage products and announcements.</p>
+          <p className="mt-2 text-sm text-muted">Sign in to manage products and announcements.</p>
         </div>
 
-        <div className="mt-8 rounded-2xl border border-ink-100 bg-white p-7 shadow-card">
+        <div className="mt-8 rounded-2xl border border-line bg-card p-7 shadow-card">
           <LoginForm />
         </div>
       </div>

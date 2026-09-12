@@ -49,7 +49,7 @@ export function MediaUploader({
         type="button"
         disabled={busy}
         onClick={() => inputRef.current?.click()}
-        className="inline-flex items-center gap-2 rounded-lg border border-ink-200 bg-white px-4 py-2 text-sm font-medium text-ink-600 transition-colors hover:border-brand-300 hover:text-brand-700 disabled:opacity-60"
+        className="inline-flex items-center gap-2 rounded-lg border border-line-strong bg-card px-4 py-2 text-sm font-medium text-body transition-colors hover:border-brand-300 hover:text-brand disabled:opacity-60"
       >
         <Upload className="h-4 w-4" />
         {busy ? "Uploading..." : label}

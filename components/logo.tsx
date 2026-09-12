@@ -22,7 +22,7 @@ export function Logo({ variant = "dark" }: { variant?: "dark" | "light" }) {
         <span
           className={cn(
             "font-display text-[17px] font-extrabold tracking-tight",
-            variant === "light" ? "text-white" : "text-ink-900",
+            variant === "light" ? "text-white" : "text-fg",
           )}
         >
           {site.name}
@@ -30,7 +30,7 @@ export function Logo({ variant = "dark" }: { variant?: "dark" | "light" }) {
         <span
           className={cn(
             "mt-1 text-[10px] font-semibold uppercase tracking-[0.18em]",
-            variant === "light" ? "text-white/60" : "text-ink-400",
+            variant === "light" ? "text-white/60" : "text-muted-soft",
           )}
         >
           Solar Energy Solutions

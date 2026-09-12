@@ -40,7 +40,7 @@ export function AnnouncementPopup({ announcement }: { announcement: Announcement
     >
       <div
         onClick={(event) => event.stopPropagation()}
-        className="animate-fade-up relative w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-lift"
+        className="animate-fade-up relative w-full max-w-lg overflow-hidden rounded-3xl bg-card shadow-lift"
       >
         <div className="relative bg-ink-900 px-7 py-8 text-white">
           <div className="absolute -right-10 -top-12 h-36 w-36 rounded-full bg-brand-600/30 blur-2xl" />
@@ -54,7 +54,7 @@ export function AnnouncementPopup({ announcement }: { announcement: Announcement
         </div>
 
         <div className="px-7 py-6">
-          <p className="text-[15px] leading-relaxed text-ink-600">{announcement.message}</p>
+          <p className="text-[15px] leading-relaxed text-body">{announcement.message}</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             {announcement.cta_href && (
               <Link
@@ -68,7 +68,7 @@ export function AnnouncementPopup({ announcement }: { announcement: Announcement
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="flex-1 rounded-full border border-ink-200 px-6 py-3 text-sm font-semibold text-ink-600 transition-colors hover:bg-ink-50"
+              className="flex-1 rounded-full border border-line-strong px-6 py-3 text-sm font-semibold text-body transition-colors hover:bg-subtle"
             >
               Maybe later
             </button>

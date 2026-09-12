@@ -24,7 +24,7 @@ export function DeleteButton({
       <input type="hidden" name="id" value={id} />
       <button
         type="submit"
-        className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-ink-500 transition-colors hover:bg-red-50 hover:text-red-600"
+        className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-muted transition-colors hover:bg-red-50 hover:text-red-600"
       >
         <Trash2 className="h-4 w-4" />
         {label}

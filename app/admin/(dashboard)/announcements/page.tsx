@@ -12,7 +12,7 @@ export default async function AdminAnnouncementsPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">Announcements</h1>
-          <p className="mt-1.5 text-sm text-ink-500">
+          <p className="mt-1.5 text-sm text-muted">
             The active announcement appears as a popup and a homepage banner.
           </p>
         </div>
@@ -29,20 +29,20 @@ export default async function AdminAnnouncementsPage() {
         {announcements.map((announcement) => (
           <div
             key={announcement.id}
-            className="flex flex-col gap-4 rounded-2xl border border-ink-100 bg-white p-5 sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col gap-4 rounded-2xl border border-line bg-card p-5 sm:flex-row sm:items-center sm:justify-between"
           >
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="font-medium text-ink-900">{announcement.title}</p>
+                <p className="font-medium text-fg">{announcement.title}</p>
                 <span
                   className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                    announcement.is_active ? "bg-brand-100 text-brand-700" : "bg-ink-100 text-ink-500"
+                    announcement.is_active ? "bg-brand-100 text-brand" : "bg-line text-muted"
                   }`}
                 >
                   {announcement.is_active ? "Active" : "Inactive"}
                 </span>
               </div>
-              <p className="mt-1.5 line-clamp-2 text-sm text-ink-500">{announcement.message}</p>
+              <p className="mt-1.5 line-clamp-2 text-sm text-muted">{announcement.message}</p>
             </div>
 
             <div className="flex shrink-0 items-center gap-1">
@@ -51,7 +51,7 @@ export default async function AdminAnnouncementsPage() {
                 <input type="hidden" name="activate" value={String(!announcement.is_active)} />
                 <button
                   type="submit"
-                  className="rounded-lg px-3 py-1.5 text-sm font-medium text-ink-600 transition-colors hover:bg-ink-50 hover:text-brand-700"
+                  className="rounded-lg px-3 py-1.5 text-sm font-medium text-body transition-colors hover:bg-subtle hover:text-brand"
                 >
                   {announcement.is_active ? "Disable" : "Enable"}
                 </button>
@@ -59,7 +59,7 @@ export default async function AdminAnnouncementsPage() {
 
               <Link
                 href={`/admin/announcements/${announcement.id}/edit`}
-                className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-ink-600 transition-colors hover:bg-ink-50 hover:text-brand-700"
+                className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-body transition-colors hover:bg-subtle hover:text-brand"
               >
                 <Pencil className="h-4 w-4" />
                 Edit
@@ -75,7 +75,7 @@ export default async function AdminAnnouncementsPage() {
         ))}
 
         {announcements.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-ink-200 bg-white px-6 py-16 text-center text-sm text-ink-400">
+          <div className="rounded-2xl border border-dashed border-line-strong bg-card px-6 py-16 text-center text-sm text-muted-soft">
             No announcements yet.
           </div>
         )}

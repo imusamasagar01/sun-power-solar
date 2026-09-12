@@ -17,6 +17,17 @@ if (!url || !serviceKey) {
 
 const supabase = createClient(url, serviceKey, { auth: { persistSession: false } });
 
+const { error: categoryInsertError } = await supabase
+  .from("categories")
+  .upsert(
+    seedCategories.map(({ name, slug }) => ({ name, slug })),
+    { onConflict: "slug" },
+  );
+if (categoryInsertError) {
+  console.error("Could not save categories:", categoryInsertError.message);
+  process.exit(1);
+}
+
 const { data: categories, error: categoryError } = await supabase.from("categories").select("id, slug");
 if (categoryError) {
   console.error("Could not read categories:", categoryError.message);
@@ -27,9 +38,21 @@ if (categoryError) {
 const slugById = new Map(seedCategories.map((category) => [category.id, category.slug]));
 const idBySlug = new Map((categories ?? []).map((category) => [category.slug, category.id]));
 
-const rows = seedProducts.map(({ id, category, category_id, ...product }) => ({
-  ...product,
-  category_id: idBySlug.get(slugById.get(category_id ?? "") ?? "") ?? null,
+const rows = seedProducts.map((product) => ({
+  slug: product.slug,
+  name: product.name,
+  title: product.title,
+  description: product.description,
+  price: product.price,
+  discount_price: product.discount_price,
+  images: product.images,
+  videos: product.videos,
+  documents: product.documents,
+  features: product.features,
+  specifications: product.specifications,
+  is_active: product.is_active,
+  is_featured: product.is_featured,
+  category_id: idBySlug.get(slugById.get(product.category_id ?? "") ?? "") ?? null,
 }));
 
 const { error: productError } = await supabase.from("products").upsert(rows, { onConflict: "slug" });

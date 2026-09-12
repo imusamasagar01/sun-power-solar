@@ -7,7 +7,6 @@ import {
   Phone,
   ShieldCheck,
   Sparkles,
-  Sun,
   Tag,
 } from "lucide-react";
 import { ProductCard } from "@/components/product-card";
@@ -58,16 +57,21 @@ export default async function HomePage() {
           className="object-cover opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/80 to-ink-900/20" />
+        <div className="glow-orb -left-24 top-10 h-80 w-80 animate-drift bg-brand-500/30" />
+        <div className="glow-orb -bottom-24 left-1/3 h-72 w-72 animate-drift bg-gold-500/20 [animation-delay:-6s]" />
 
         <div className="container-page relative flex min-h-[86vh] flex-col justify-center py-24 lg:min-h-[88vh]">
           <div className="max-w-2xl animate-fade-up">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-gold-300 backdrop-blur-sm">
-              <Sun className="h-3.5 w-3.5" />
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-300 opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold-300" />
+              </span>
               Powering homes &amp; businesses since 2013
             </span>
 
             <h1 className="mt-7 font-display text-4xl font-extrabold leading-[1.08] text-white sm:text-5xl lg:text-6xl">
-              Clean, dependable solar energy for every rooftop
+              Clean, dependable <span className="text-gradient">solar energy</span> for every rooftop
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-200">
@@ -85,7 +89,7 @@ export default async function HomePage() {
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-ink-900 active:scale-[0.98]"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-card hover:text-fg active:scale-[0.98]"
               >
                 <Phone className="h-4 w-4" />
                 Request a Quote
@@ -94,12 +98,19 @@ export default async function HomePage() {
           </div>
 
           <dl className="mt-16 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-8 border-t border-white/15 pt-8 sm:grid-cols-4">
-            {site.stats.map((stat) => (
-              <div key={stat.label}>
-                <dt className="font-display text-3xl font-bold text-white">{stat.value}</dt>
+            {site.stats.map((stat, index) => (
+              <div
+                key={stat.label}
+                className="group animate-fade-up"
+                style={{ animationDelay: `${200 + index * 90}ms` }}
+              >
+                <dt className="font-display text-3xl font-bold text-white transition-colors duration-300 group-hover:text-gold-300">
+                  {stat.value}
+                </dt>
                 <dd className="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-ink-300">
                   {stat.label}
                 </dd>
+                <span className="mt-3 block h-0.5 w-8 origin-left scale-x-0 rounded-full bg-gold-400 transition-transform duration-500 group-hover:scale-x-100" />
               </div>
             ))}
           </dl>
@@ -110,18 +121,18 @@ export default async function HomePage() {
       <section className="container-page py-20 lg:py-28">
         <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+            <span className="eyebrow">
               Featured Products
             </span>
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Equipment we stand behind</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
+            <p className="mt-4 text-[15px] leading-relaxed text-muted">
               A curated selection of the systems our customers rely on most, each backed by manufacturer
               warranty and our own installation support.
             </p>
           </div>
           <Link
             href="/products"
-            className="group inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-brand-700"
+            className="group inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-brand"
           >
             View all products
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -138,14 +149,14 @@ export default async function HomePage() {
       </section>
 
       {/* Why choose us */}
-      <section className="bg-white py-20 lg:py-28">
+      <section className="bg-card py-20 lg:py-28">
         <div className="container-page">
           <Reveal className="mx-auto max-w-2xl text-center">
-            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+            <span className="eyebrow">
               Why Choose Us
             </span>
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Built on trust, proven in the field</h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
+            <p className="mt-4 text-[15px] leading-relaxed text-muted">
               Solar is a twenty-year decision. We keep it straightforward — honest advice, quality hardware
               and service you can actually reach.
             </p>
@@ -154,12 +165,13 @@ export default async function HomePage() {
           <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {benefits.map(({ Icon, title, description }, index) => (
               <Reveal key={title} delay={index * 80} className="h-full">
-                <div className="group h-full rounded-2xl border border-ink-100 bg-sand p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:bg-white hover:shadow-lift">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-600/10 text-brand-700 transition-colors duration-300 group-hover:bg-brand-600 group-hover:text-white">
+                <div className="group relative h-full overflow-hidden rounded-2xl border border-line bg-surface dark:bg-subtle p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-200 hover:bg-card hover:shadow-lift dark:hover:bg-line">
+                  <span className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-brand-500 to-gold-400 transition-transform duration-500 group-hover:scale-x-100" />
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-600/10 text-brand transition-all duration-300 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white">
                     <Icon className="h-5.5 w-5.5" />
                   </span>
                   <h3 className="mt-5 font-display text-lg font-bold">{title}</h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-ink-500">{description}</p>
+                  <p className="mt-2.5 text-sm leading-relaxed text-muted">{description}</p>
                 </div>
               </Reveal>
             ))}
@@ -184,18 +196,18 @@ export default async function HomePage() {
           </Reveal>
 
           <Reveal delay={100}>
-            <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+            <span className="eyebrow">
               About {site.name}
             </span>
             <h2 className="mt-3 text-3xl font-bold sm:text-4xl">
               A solar partner that treats your energy bill like its own
             </h2>
-            <p className="mt-5 text-[15px] leading-relaxed text-ink-500">
+            <p className="mt-5 text-[15px] leading-relaxed text-muted">
               We started with a simple frustration: customers were sold oversized systems they did not need,
               then left alone when something failed. {site.name} was built to do the opposite — size the
               system honestly, install it properly and answer the phone afterwards.
             </p>
-            <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
+            <p className="mt-4 text-[15px] leading-relaxed text-muted">
               Today our team designs and delivers residential, commercial and agricultural solar projects
               across the country, from a single rooftop array to megawatt-scale installations.
             </p>
@@ -207,8 +219,8 @@ export default async function HomePage() {
                 "Net-metering documentation",
                 "Genuine warranty support",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-ink-700">
-                  <BadgeCheck className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand-600" />
+                <li key={item} className="flex items-start gap-2.5 text-sm font-medium text-body">
+                  <BadgeCheck className="mt-0.5 h-4.5 w-4.5 shrink-0 text-brand" />
                   {item}
                 </li>
               ))}
@@ -216,7 +228,7 @@ export default async function HomePage() {
 
             <Link
               href="/about"
-              className="group mt-9 inline-flex items-center gap-2 rounded-full bg-ink-900 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lift"
+              className="group mt-9 inline-flex items-center gap-2 rounded-full bg-ink-900 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lift active:scale-[0.98] dark:bg-brand-600 dark:hover:bg-brand-500"
             >
               Learn more about us
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -230,8 +242,9 @@ export default async function HomePage() {
         <section className="container-page pb-20 lg:pb-28">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl bg-ink-900 px-8 py-12 text-white sm:px-12 lg:px-16 lg:py-16">
-              <div className="absolute -left-16 -top-20 h-64 w-64 rounded-full bg-brand-600/25 blur-3xl" />
-              <div className="absolute -bottom-24 -right-10 h-64 w-64 rounded-full bg-gold-500/15 blur-3xl" />
+              <div className="dot-grid absolute inset-0 text-white/10" />
+              <div className="glow-orb -left-16 -top-20 h-64 w-64 animate-drift bg-brand-600/30" />
+              <div className="glow-orb -bottom-24 -right-10 h-64 w-64 animate-drift bg-gold-500/20 [animation-delay:-7s]" />
               <div className="relative flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between">
                 <div className="max-w-2xl">
                   <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-gold-300">
@@ -245,7 +258,7 @@ export default async function HomePage() {
                 </div>
                 <Link
                   href={announcement.cta_href || "/products"}
-                  className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-7 py-3.5 text-sm font-semibold text-ink-900 transition-all duration-300 hover:bg-gold-400"
+                  className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-card px-7 py-3.5 text-sm font-semibold text-fg transition-all duration-300 hover:bg-gold-400"
                 >
                   {announcement.cta_label || "View offers"}
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -257,12 +270,12 @@ export default async function HomePage() {
       )}
 
       {/* Contact CTA */}
-      <section className="border-t border-ink-100 bg-white py-20 lg:py-24">
+      <section className="border-t border-line bg-card py-20 lg:py-24">
         <div className="container-page">
           <Reveal className="flex flex-col items-center gap-8 text-center lg:flex-row lg:justify-between lg:text-left">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold sm:text-4xl">Ready to lower your electricity bill?</h2>
-              <p className="mt-4 text-[15px] leading-relaxed text-ink-500">
+              <p className="mt-4 text-[15px] leading-relaxed text-muted">
                 Tell us about your property and monthly consumption. We will recommend the right system size
                 and send you a clear, itemised quotation — no pressure, no hidden costs.
               </p>
@@ -276,7 +289,7 @@ export default async function HomePage() {
               </Link>
               <a
                 href={site.phoneHref}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-ink-200 px-7 py-3.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-ink-50"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-line-strong px-7 py-3.5 text-sm font-semibold text-body transition-colors hover:bg-subtle"
               >
                 <Phone className="h-4 w-4" />
                 {site.phone}

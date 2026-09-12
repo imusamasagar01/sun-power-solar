@@ -14,7 +14,7 @@ export default async function AdminProductsPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">Products</h1>
-          <p className="mt-1.5 text-sm text-ink-500">{products.length} products in the catalogue.</p>
+          <p className="mt-1.5 text-sm text-muted">{products.length} products in the catalogue.</p>
         </div>
         <Link
           href="/admin/products/new"
@@ -25,11 +25,11 @@ export default async function AdminProductsPage() {
         </Link>
       </div>
 
-      <div className="mt-8 overflow-hidden rounded-2xl border border-ink-100 bg-white">
-        <ul className="divide-y divide-ink-100">
+      <div className="mt-8 overflow-hidden rounded-2xl border border-line bg-card">
+        <ul className="divide-y divide-line">
           {products.map((product) => (
             <li key={product.id} className="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:p-5">
-              <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-ink-50">
+              <div className="relative h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-subtle">
                 {product.images[0] && (
                   <Image src={product.images[0]} alt="" fill sizes="80px" className="object-cover" />
                 )}
@@ -37,10 +37,10 @@ export default async function AdminProductsPage() {
 
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <p className="truncate font-medium text-ink-900">{product.name}</p>
+                  <p className="truncate font-medium text-fg">{product.name}</p>
                   <span
                     className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
-                      product.is_active ? "bg-brand-100 text-brand-700" : "bg-ink-100 text-ink-500"
+                      product.is_active ? "bg-brand-100 text-brand" : "bg-line text-muted"
                     }`}
                   >
                     {product.is_active ? "Active" : "Inactive"}
@@ -51,7 +51,7 @@ export default async function AdminProductsPage() {
                     </span>
                   )}
                 </div>
-                <p className="mt-1 truncate text-sm text-ink-400">
+                <p className="mt-1 truncate text-sm text-muted-soft">
                   {product.category?.name ?? "Uncategorised"} ·{" "}
                   {product.discount_price
                     ? `${formatPrice(product.discount_price)} (was ${formatPrice(product.price)})`
@@ -62,7 +62,7 @@ export default async function AdminProductsPage() {
               <div className="flex items-center gap-1">
                 <Link
                   href={`/admin/products/${product.id}/edit`}
-                  className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-ink-600 transition-colors hover:bg-ink-50 hover:text-brand-700"
+                  className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-body transition-colors hover:bg-subtle hover:text-brand"
                 >
                   <Pencil className="h-4 w-4" />
                   Edit
@@ -78,7 +78,7 @@ export default async function AdminProductsPage() {
           ))}
 
           {products.length === 0 && (
-            <li className="px-6 py-16 text-center text-sm text-ink-400">
+            <li className="px-6 py-16 text-center text-sm text-muted-soft">
               No products yet — add your first one.
             </li>
           )}

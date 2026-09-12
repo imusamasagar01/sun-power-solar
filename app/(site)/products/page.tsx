@@ -35,13 +35,13 @@ export default async function ProductsPage({
 
   return (
     <>
-      <section className="border-b border-ink-100 bg-white">
+      <section className="border-b border-line bg-card">
         <div className="container-page py-14 lg:py-20">
-          <span className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
+          <span className="eyebrow">
             Our Catalogue
           </span>
           <h1 className="mt-3 max-w-3xl text-4xl font-extrabold sm:text-5xl">Solar products & systems</h1>
-          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-ink-500">
+          <p className="mt-5 max-w-2xl text-[15px] leading-relaxed text-muted">
             Everything you need to generate, store and manage your own electricity — supplied with genuine
             warranties and professional installation support.
           </p>
@@ -53,15 +53,15 @@ export default async function ProductsPage({
           <ProductFilters categories={categories} />
         </Suspense>
 
-        <p className="mt-8 text-sm text-ink-400">
+        <p className="mt-8 text-sm text-muted-soft">
           Showing {filtered.length} {filtered.length === 1 ? "product" : "products"}
         </p>
 
         {filtered.length === 0 ? (
-          <div className="mt-6 flex flex-col items-center rounded-2xl border border-dashed border-ink-200 bg-white px-6 py-20 text-center">
+          <div className="mt-6 flex flex-col items-center rounded-2xl border border-dashed border-line-strong bg-card px-6 py-20 text-center">
             <PackageSearch className="h-10 w-10 text-ink-300" />
             <h2 className="mt-5 font-display text-xl font-bold">No products found</h2>
-            <p className="mt-2 max-w-sm text-sm text-ink-500">
+            <p className="mt-2 max-w-sm text-sm text-muted">
               Try a different search term or category. You can also contact us directly and we will source
               what you need.
             </p>

@@ -53,14 +53,14 @@ export function ProductFilters({ categories }: { categories: Category[] }) {
 
       {/* text-base on mobile keeps iOS Safari from zooming the page when the field is focused. */}
       <div className="relative w-full lg:max-w-xs">
-        <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+        <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-soft" />
         <input
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search products..."
           aria-label="Search products"
-          className="w-full rounded-full border border-ink-200 bg-white py-3 pl-11 pr-4 text-base sm:text-sm text-ink-800 outline-none transition-colors placeholder:text-ink-400 focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
+          className="w-full rounded-full border border-line-strong bg-card py-3 pl-11 pr-4 text-base sm:text-sm text-fg outline-none transition-colors placeholder:text-muted-soft focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
         />
       </div>
     </div>
@@ -83,8 +83,8 @@ function FilterPill({
       className={cn(
         "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 active:scale-[0.97]",
         active
-          ? "border-brand-600 bg-brand-600 text-white shadow-sm"
-          : "border-ink-200 bg-white text-ink-600 hover:border-brand-300 hover:text-brand-700",
+          ? "border-brand-600 bg-brand-600 text-white shadow-glow"
+          : "border-line-strong bg-card text-body hover:-translate-y-0.5 hover:border-brand-300 hover:text-brand",
       )}
     >
       {children}

@@ -224,7 +224,7 @@ export function ProductForm({
         <SubmitButton isEdit={Boolean(product)} />
         <Link
           href="/admin/products"
-          className="rounded-xl border border-ink-200 px-6 py-2.5 text-sm font-semibold text-ink-600 transition-colors hover:bg-ink-50"
+          className="rounded-xl border border-line-strong px-6 py-2.5 text-sm font-semibold text-body transition-colors hover:bg-subtle"
         >
           Cancel
         </Link>
@@ -235,7 +235,7 @@ export function ProductForm({
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border border-ink-100 bg-white p-6 sm:p-7">
+    <section className="rounded-2xl border border-line bg-card p-6 sm:p-7">
       <h2 className="font-display text-base font-bold">{title}</h2>
       <div className="mt-5 space-y-5">{children}</div>
     </section>
@@ -274,12 +274,12 @@ function Checkbox({
   defaultChecked: boolean;
 }) {
   return (
-    <label className="flex items-center gap-3 text-sm text-ink-700">
+    <label className="flex items-center gap-3 text-sm text-body">
       <input
         type="checkbox"
         name={name}
         defaultChecked={defaultChecked}
-        className="h-4 w-4 rounded border-ink-300 text-brand-600 accent-brand-600"
+        className="h-4 w-4 rounded border-line-strong text-brand accent-brand-600"
       />
       {label}
     </label>
