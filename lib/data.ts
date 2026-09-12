@@ -8,6 +8,18 @@ function adminClient() {
   return isSupabaseConfigured && process.env.SUPABASE_SERVICE_ROLE_KEY ? getSupabaseAdmin() : null;
 }
 
+/**
+ * Runs a Supabase query, retrying once on a transient failure.
+ * Cold starts and brief network blips would otherwise surface as a 500 page.
+ */
+async function withRetry<T>(run: () => PromiseLike<{ data: T; error: { message: string } | null }>) {
+  const first = await run();
+  if (!first.error) return first;
+
+  await new Promise((resolve) => setTimeout(resolve, 400));
+  return run();
+}
+
 const PRODUCT_FIELDS =
   "id, slug, name, title, description, price, discount_price, category_id, images, videos, documents, features, specifications, is_active, is_featured, created_at";
 
@@ -33,7 +45,9 @@ export async function getCategories(): Promise<Category[]> {
   const supabase = getSupabase();
   if (!supabase) return seedCategories;
 
-  const { data, error } = await supabase.from("categories").select("id, name, slug").order("name");
+  const { data, error } = await withRetry(() =>
+    supabase.from("categories").select("id, name, slug").order("name"),
+  );
   if (error) throw new Error(`Failed to load categories: ${error.message}`);
   return data as Category[];
 }
@@ -49,10 +63,10 @@ export async function getProducts(options: { includeInactive?: boolean } = {}): 
     return withCategory(products, categories);
   }
 
-  let query = supabase.from("products").select(PRODUCT_FIELDS).order("created_at", { ascending: false });
-  if (!options.includeInactive) query = query.eq("is_active", true);
-
-  const { data, error } = await query;
+  const { data, error } = await withRetry(() => {
+    const query = supabase.from("products").select(PRODUCT_FIELDS).order("created_at", { ascending: false });
+    return options.includeInactive ? query : query.eq("is_active", true);
+  });
   if (error) throw new Error(`Failed to load products: ${error.message}`);
   return withCategory((data ?? []).map(normalizeProduct), categories);
 }
@@ -72,12 +86,9 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     return product ? withCategory([product], categories)[0] : null;
   }
 
-  const { data, error } = await supabase
-    .from("products")
-    .select(PRODUCT_FIELDS)
-    .eq("slug", slug)
-    .eq("is_active", true)
-    .maybeSingle();
+  const { data, error } = await withRetry(() =>
+    supabase.from("products").select(PRODUCT_FIELDS).eq("slug", slug).eq("is_active", true).maybeSingle(),
+  );
 
   if (error) throw new Error(`Failed to load product: ${error.message}`);
   return data ? withCategory([normalizeProduct(data)], categories)[0] : null;
@@ -96,13 +107,15 @@ export async function getActiveAnnouncement(): Promise<Announcement | null> {
   const supabase = getSupabase();
   if (!supabase) return seedAnnouncements.find((item) => item.is_active) ?? null;
 
-  const { data, error } = await supabase
-    .from("announcements")
-    .select("*")
-    .eq("is_active", true)
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  const { data, error } = await withRetry(() =>
+    supabase
+      .from("announcements")
+      .select("*")
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  );
 
   if (error) throw new Error(`Failed to load announcement: ${error.message}`);
   return (data as Announcement) ?? null;

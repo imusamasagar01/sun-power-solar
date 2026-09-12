@@ -7,8 +7,9 @@ import { submitInquiry, type InquiryState } from "@/app/(site)/contact/actions";
 
 const initialState: InquiryState = { status: "idle", message: "" };
 
+// text-base on mobile keeps iOS Safari from zooming the page when a field is focused.
 const fieldClass =
-  "w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-sm text-ink-800 outline-none transition-colors placeholder:text-ink-400 focus:border-brand-400 focus:ring-2 focus:ring-brand-100";
+  "w-full rounded-xl border border-ink-200 bg-white px-4 py-3 text-base sm:text-sm text-ink-800 outline-none transition-colors placeholder:text-ink-400 focus:border-brand-400 focus:ring-2 focus:ring-brand-100";
 
 export function ContactForm({ product }: { product?: string }) {
   const [state, formAction] = useActionState(submitInquiry, initialState);
@@ -93,7 +94,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-600 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lift disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+      className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-600 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lift active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
     >
       <Send className="h-4 w-4" />
       {pending ? "Sending..." : "Send message"}

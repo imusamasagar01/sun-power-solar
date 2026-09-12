@@ -78,14 +78,14 @@ export default async function HomePage() {
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/products"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lift transition-all duration-300 hover:bg-brand-500"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lift transition-all duration-300 hover:bg-brand-500 active:scale-[0.98]"
               >
                 Explore Products
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-ink-900"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-ink-900 active:scale-[0.98]"
               >
                 <Phone className="h-4 w-4" />
                 Request a Quote

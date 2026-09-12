@@ -110,7 +110,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href={`/contact?product=${encodeURIComponent(product.name)}`}
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-brand-600 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lift"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-brand-600 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lift active:scale-[0.98]"
                 >
                   Request a Quote
                 </Link>
@@ -118,7 +118,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
                   href={`${site.whatsappHref}?text=${inquiryMessage}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-ink-200 px-7 py-3.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-ink-50"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-ink-200 px-7 py-3.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-ink-50 active:scale-[0.98]"
                 >
                   <MessageCircle className="h-4 w-4" />
                   WhatsApp

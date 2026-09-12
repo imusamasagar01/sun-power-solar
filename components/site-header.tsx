@@ -74,7 +74,7 @@ export function SiteHeader() {
           </a>
           <Link
             href="/products"
-            className="rounded-full bg-ink-900 px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lift"
+            className="rounded-full bg-ink-900 px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-700 hover:shadow-lift active:scale-[0.98]"
           >
             Explore Products
           </Link>
