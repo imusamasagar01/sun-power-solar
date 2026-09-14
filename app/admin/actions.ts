@@ -59,9 +59,11 @@ export async function saveProductAction(_prev: FormState, formData: FormData): P
   const name = String(formData.get("name") ?? "").trim();
   if (!name) return { status: "error", message: "Product name is required." };
 
+  const baseSlug = slugify(String(formData.get("slug") ?? "") || name) || `product-${Date.now()}`;
+
   const payload = {
     name,
-    slug: slugify(String(formData.get("slug") ?? "") || name),
+    slug: baseSlug,
     title: String(formData.get("title") ?? "").trim(),
     description: String(formData.get("description") ?? "").trim(),
     price: Number(formData.get("price") ?? 0) || 0,
@@ -80,16 +82,51 @@ export async function saveProductAction(_prev: FormState, formData: FormData): P
   try {
     requireDatabase();
     const supabase = getSupabaseAdmin();
-    const { error } = id
-      ? await supabase.from("products").update(payload).eq("id", id)
-      : await supabase.from("products").insert(payload);
 
-    if (error) {
-      const duplicate = error.code === "23505";
-      return {
-        status: "error",
-        message: duplicate ? "A product with this URL slug already exists." : error.message,
-      };
+    if (id) {
+      const { error } = await withWriteRetry(() =>
+        supabase.from("products").update(payload).eq("id", id),
+      );
+      if (error) {
+        return {
+          status: "error",
+          message: isDuplicateSlug(error)
+            ? "A product with this URL slug already exists. Change the slug and try again."
+            : friendlyWriteError(error.message),
+        };
+      }
+    } else {
+      // If the slug is taken, append -2, -3… instead of failing the whole create.
+      let attempt = 0;
+      let lastError: { message: string; code?: string } | null = null;
+      let created = false;
+
+      while (attempt < 6) {
+        const slug = attempt === 0 ? baseSlug : `${baseSlug}-${attempt + 1}`;
+        const { error } = await withWriteRetry(() =>
+          supabase.from("products").insert({ ...payload, slug }),
+        );
+
+        if (!error) {
+          created = true;
+          break;
+        }
+
+        lastError = error;
+        if (!isDuplicateSlug(error)) break;
+        attempt += 1;
+      }
+
+      if (!created) {
+        return {
+          status: "error",
+          message: lastError
+            ? isDuplicateSlug(lastError)
+              ? "A product with this URL slug already exists. Change the slug and try again."
+              : friendlyWriteError(lastError.message)
+            : "Could not save product.",
+        };
+      }
     }
   } catch (error) {
     return { status: "error", message: error instanceof Error ? error.message : "Could not save product." };
@@ -97,6 +134,32 @@ export async function saveProductAction(_prev: FormState, formData: FormData): P
 
   revalidateAll();
   redirect("/admin/products");
+}
+
+function isDuplicateSlug(error: { message: string; code?: string }) {
+  return (
+    error.code === "23505" ||
+    /duplicate key|unique constraint|already exists/i.test(error.message)
+  );
+}
+
+function friendlyWriteError(message: string) {
+  if (/timeout|timed out|gateway|504|502|503/i.test(message)) {
+    return "The database timed out. Please wait a moment and try saving again.";
+  }
+  return message;
+}
+
+async function withWriteRetry<T extends { error: { message: string; code?: string } | null }>(
+  run: () => PromiseLike<T>,
+): Promise<T> {
+  let last = await run();
+  if (!last.error || !/timeout|timed out|gateway|504|502|503|fetch failed/i.test(last.error.message)) {
+    return last;
+  }
+  await new Promise((resolve) => setTimeout(resolve, 800));
+  last = await run();
+  return last;
 }
 
 export async function deleteProductAction(formData: FormData) {

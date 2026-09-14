@@ -33,13 +33,20 @@ export function ProductForm({
     <form action={formAction} className="space-y-8">
       {product && <input type="hidden" name="id" value={product.id} />}
 
+      {state.status === "error" && (
+        <p className="flex items-start gap-2.5 rounded-xl border border-gold-300 bg-gold-100 px-4 py-3 text-sm text-gold-600">
+          <TriangleAlert className="mt-0.5 h-4.5 w-4.5 shrink-0" />
+          {state.message}
+        </p>
+      )}
+
       <Section title="Basics">
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Product name *" htmlFor="name">
             <input id="name" name="name" required defaultValue={product?.name} className={adminField} />
           </Field>
 
-          <Field label="URL slug" htmlFor="slug" hint="Leave empty to generate from the product name.">
+          <Field label="URL slug" htmlFor="slug" hint="Leave empty to generate from the product name. Must be unique.">
             <input
               id="slug"
               name="slug"
@@ -212,13 +219,6 @@ export function ProductForm({
           />
         </div>
       </Section>
-
-      {state.status === "error" && (
-        <p className="flex items-start gap-2.5 rounded-xl bg-gold-100 px-4 py-3 text-sm text-gold-600">
-          <TriangleAlert className="mt-0.5 h-4.5 w-4.5 shrink-0" />
-          {state.message}
-        </p>
-      )}
 
       <div className="flex items-center gap-3">
         <SubmitButton isEdit={Boolean(product)} />
