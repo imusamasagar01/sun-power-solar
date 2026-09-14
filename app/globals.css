@@ -209,6 +209,30 @@
     background-color: var(--color-brand-700);
     color: #ffffff;
   }
+
+  /* Browsers default buttons to an arrow cursor — use a hand for anything clickable. */
+  a,
+  button,
+  summary,
+  label,
+  select,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="file"] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  input:disabled,
+  select:disabled,
+  textarea:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
 }
 
 @layer components {
