@@ -4,6 +4,9 @@ import { SiteHeader } from "@/components/site-header";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { getActiveAnnouncement } from "@/lib/data";
 
+// Always render on request so a flaky Supabase response cannot fail `next build`.
+export const dynamic = "force-dynamic";
+
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const announcement = await getActiveAnnouncement();
 

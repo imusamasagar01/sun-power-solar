@@ -8,16 +8,29 @@ function adminClient() {
   return isSupabaseConfigured && process.env.SUPABASE_SERVICE_ROLE_KEY ? getSupabaseAdmin() : null;
 }
 
+function isTransientError(message: string) {
+  return /timeout|timed out|gateway|502|503|504|fetch failed|network|ECONNRESET|ETIMEDOUT/i.test(
+    message,
+  );
+}
+
 /**
- * Runs a Supabase query, retrying once on a transient failure.
- * Cold starts and brief network blips would otherwise surface as a 500 page.
+ * Runs a Supabase query with a couple of retries on transient failures.
+ * Cold starts and brief network blips would otherwise surface as a 500 page
+ * (or fail the Vercel build during prerender).
  */
 async function withRetry<T>(run: () => PromiseLike<{ data: T; error: { message: string } | null }>) {
-  const first = await run();
-  if (!first.error) return first;
+  let last = await run();
+  if (!last.error) return last;
 
-  await new Promise((resolve) => setTimeout(resolve, 400));
-  return run();
+  for (const delayMs of [600, 1500]) {
+    if (!isTransientError(last.error.message)) break;
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
+    last = await run();
+    if (!last.error) return last;
+  }
+
+  return last;
 }
 
 const PRODUCT_FIELDS =
@@ -117,7 +130,11 @@ export async function getActiveAnnouncement(): Promise<Announcement | null> {
       .maybeSingle(),
   );
 
-  if (error) throw new Error(`Failed to load announcement: ${error.message}`);
+  // Popup is optional — never fail a page (or the production build) for it.
+  if (error) {
+    console.error(`Failed to load announcement: ${error.message}`);
+    return null;
+  }
   return (data as Announcement) ?? null;
 }
 
