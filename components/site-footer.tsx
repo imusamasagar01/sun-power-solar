@@ -100,7 +100,14 @@ export function SiteFooter() {
             </li>
             <li className="flex gap-3">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
-              <span className="text-ink-300">{site.address}</span>
+              <a
+                href={site.mapHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-block text-ink-300 transition-all duration-300 hover:translate-x-1 hover:text-brand-300"
+              >
+                {site.address}
+              </a>
             </li>
           </ul>
         </div>
